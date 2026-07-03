@@ -274,10 +274,10 @@ def main_window(qtbot, fake_api: FakeCagApi):
     # Imported here (not at module top) so collecting non-UI tests never has to
     # build the widget tree.
     import httpx as _httpx
-    from llamacag_ui.ui.main_window import MainWindow
     from PySide6.QtCore import QSettings
 
     from llamacag_ui.config import AppConfig
+    from llamacag_ui.ui.main_window import MainWindow
 
     # Isolated QSettings so tests never touch the real registry/plist.
     settings = QSettings()
