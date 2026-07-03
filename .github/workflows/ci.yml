@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Qt (PySide6) needs these X/EGL libraries even to run offscreen.
+      - name: Install Qt system libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libegl1 libgl1 libxkbcommon-x11-0 \
+            libxcb-icccm4 libxcb-image0 libxcb-keysyms1 \
+            libxcb-randr0 libxcb-render-util0 libxcb-shape0 libxcb-xinerama0 \
+            libxcb-cursor0
+
+      - name: Install package
+        run: pip install -e ".[dev]"
+
+      - name: Ruff
+        run: ruff check .
+
+      - name: Pytest (offscreen)
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: pytest -q
