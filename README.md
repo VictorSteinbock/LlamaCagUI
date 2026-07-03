@@ -47,6 +47,10 @@ flowchart LR
     SC -. "docker compose up/down/ps<br/>edit .env LLAMA_MODEL" .-> stack
 ```
 
+*Not technical? The stack's
+[plain-words explainer](https://github.com/VictorSteinbock/llama-cag-n8n-reworked/blob/main/docs/EXPLAINER.md)
+tells the whole story in two minutes.*
+
 This app is the **desktop control room** of the
 [llama-cag-n8n stack](https://github.com/VictorSteinbock/llama-cag-n8n-reworked)
 — one engine with three other faces: a typed HTTP API, **n8n automation**
